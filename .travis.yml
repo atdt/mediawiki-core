@@ -18,7 +18,7 @@ branches:
   # Test changes in master and in Wikimedia's production branches.
   only:
     - master
-    - /^wmf\/.*$/
+    - /\dwmf\d/
 
 before_install:
   - sudo apt-get install -qq djvulibre-bin tidy
