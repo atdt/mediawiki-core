@@ -1340,5 +1340,4 @@ $wgAutoloadLocalClasses = array(
 	'ZhConverter' => __DIR__ . '/languages/classes/LanguageZh.php',
 	'ZipDirectoryReader' => __DIR__ . '/includes/utils/ZipDirectoryReader.php',
 	'ZipDirectoryReaderError' => __DIR__ . '/includes/utils/ZipDirectoryReader.php',
-	'profile_point' => __DIR__ . '/profileinfo.php',
 );

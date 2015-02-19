@@ -1,2 +1,3 @@
 * Removed .php5 files.
 * Ripped out AjaxDispatcher and AjaxResponse.
+* Ripped out profileinfo.
