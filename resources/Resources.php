@@ -1493,14 +1493,6 @@ return array(
 
 	/* MediaWiki Legacy */
 
-	'mediawiki.legacy.ajax' => array(
-		'scripts' => 'resources/src/mediawiki.legacy/ajax.js',
-		'dependencies' => array(
-			'mediawiki.util',
-			'mediawiki.legacy.wikibits',
-		),
-		'position' => 'top',
-	),
 	'mediawiki.legacy.commonPrint' => array(
 		'styles' => array(
 			'resources/src/mediawiki.legacy/commonPrint.css' => array( 'media' => 'print' )
