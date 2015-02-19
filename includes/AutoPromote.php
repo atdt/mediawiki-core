@@ -1,7 +1,7 @@
 <?php
 /**
  * Automatic user rights promotion based on conditions specified
- * in $wgAutopromote.
+ * in $wgAutoPromote.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,21 +23,21 @@
 
 /**
  * This class checks if user can get extra rights
- * because of conditions specified in $wgAutopromote
+ * because of conditions specified in $wgAutoPromote
  */
-class Autopromote {
+class AutoPromote {
 	/**
-	 * Get the groups for the given user based on $wgAutopromote.
+	 * Get the groups for the given user based on $wgAutoPromote.
 	 *
 	 * @param User $user The user to get the groups for
 	 * @return array Array of groups to promote to.
 	 */
-	public static function getAutopromoteGroups( User $user ) {
-		global $wgAutopromote;
+	public static function getAutoPromoteGroups( User $user ) {
+		global $wgAutoPromote;
 
 		$promote = array();
 
-		foreach ( $wgAutopromote as $group => $cond ) {
+		foreach ( $wgAutoPromote as $group => $cond ) {
 			if ( self::recCheckCondition( $cond, $user ) ) {
 				$promote[] = $group;
 			}
@@ -54,21 +54,21 @@ class Autopromote {
 	 * Does not return groups the user already belongs to or has once belonged.
 	 *
 	 * @param User $user The user to get the groups for
-	 * @param string $event Key in $wgAutopromoteOnce (each one has groups/criteria)
+	 * @param string $event Key in $wgAutoPromoteOnce (each one has groups/criteria)
 	 *
 	 * @return array Groups the user should be promoted to.
 	 *
-	 * @see $wgAutopromoteOnce
+	 * @see $wgAutoPromoteOnce
 	 */
-	public static function getAutopromoteOnceGroups( User $user, $event ) {
-		global $wgAutopromoteOnce;
+	public static function getAutoPromoteOnceGroups( User $user, $event ) {
+		global $wgAutoPromoteOnce;
 
 		$promote = array();
 
-		if ( isset( $wgAutopromoteOnce[$event] ) && count( $wgAutopromoteOnce[$event] ) ) {
+		if ( isset( $wgAutoPromoteOnce[$event] ) && count( $wgAutoPromoteOnce[$event] ) ) {
 			$currentGroups = $user->getGroups();
 			$formerGroups = $user->getFormerGroups();
-			foreach ( $wgAutopromoteOnce[$event] as $group => $cond ) {
+			foreach ( $wgAutoPromoteOnce[$event] as $group => $cond ) {
 				// Do not check if the user's already a member
 				if ( in_array( $group, $currentGroups ) ) {
 					continue;
@@ -127,7 +127,7 @@ class Autopromote {
 			} elseif ( $cond[0] == '^' ) { // XOR (exactly one cond passes)
 				if ( count( $cond ) > 3 ) {
 					wfWarn( 'recCheckCondition() given XOR ("^") condition on three or more conditions.' .
-						' Check your $wgAutopromote and $wgAutopromoteOnce settings.' );
+						' Check your $wgAutoPromote and $wgAutoPromoteOnce settings.' );
 				}
 				return self::recCheckCondition( $cond[1], $user )
 					xor self::recCheckCondition( $cond[2], $user );
@@ -197,7 +197,7 @@ class Autopromote {
 				return in_array( 'bot', User::getGroupPermissions( $user->getGroups() ) );
 			default:
 				$result = null;
-				Hooks::run( 'AutopromoteCondition', array( $cond[0],
+				Hooks::run( 'AutoPromoteCondition', array( $cond[0],
 					array_slice( $cond, 1 ), $user, &$result ) );
 				if ( $result === null ) {
 					throw new MWException( "Unrecognized condition {$cond[0]} for autopromotion!" );

@@ -1354,23 +1354,23 @@ class User implements IDBAccessObject {
 	/**
 	 * Add the user to the group if he/she meets given criteria.
 	 *
-	 * Contrary to autopromotion by \ref $wgAutopromote, the group will be
+	 * Contrary to autopromotion by \ref $wgAutoPromote, the group will be
 	 *   possible to remove manually via Special:UserRights. In such case it
 	 *   will not be re-added automatically. The user will also not lose the
 	 *   group if they no longer meet the criteria.
 	 *
-	 * @param string $event Key in $wgAutopromoteOnce (each one has groups/criteria)
+	 * @param string $event Key in $wgAutoPromoteOnce (each one has groups/criteria)
 	 *
 	 * @return array Array of groups the user has been promoted to.
 	 *
-	 * @see $wgAutopromoteOnce
+	 * @see $wgAutoPromoteOnce
 	 */
-	public function addAutopromoteOnceGroups( $event ) {
-		global $wgAutopromoteOnceLogInRC, $wgAuth;
+	public function addAutoPromoteOnceGroups( $event ) {
+		global $wgAutoPromoteOnceLogInRC, $wgAuth;
 
 		$toPromote = array();
 		if ( $this->getId() ) {
-			$toPromote = Autopromote::getAutopromoteOnceGroups( $this, $event );
+			$toPromote = AutoPromote::getAutoPromoteOnceGroups( $this, $event );
 			if ( count( $toPromote ) ) {
 				$oldGroups = $this->getGroups(); // previous groups
 
@@ -1390,7 +1390,7 @@ class User implements IDBAccessObject {
 					'5::newgroups' => $newGroups,
 				) );
 				$logid = $logEntry->insert();
-				if ( $wgAutopromoteOnceLogInRC ) {
+				if ( $wgAutoPromoteOnceLogInRC ) {
 					$logEntry->publish( $logid );
 				}
 			}
@@ -2941,7 +2941,7 @@ class User implements IDBAccessObject {
 
 				$this->mImplicitGroups = array_unique( array_merge(
 					$this->mImplicitGroups,
-					Autopromote::getAutopromoteGroups( $this )
+					AutoPromote::getAutoPromoteGroups( $this )
 				) );
 			}
 			if ( $recache ) {

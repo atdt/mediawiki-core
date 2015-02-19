@@ -511,7 +511,7 @@ class ApiQuerySiteinfo extends ApiQueryBase {
 			);
 
 			if ( $numberInGroup ) {
-				$autopromote = $config->get( 'Autopromote' );
+				$autopromote = $config->get( 'AutoPromote' );
 
 				if ( $group == 'user' ) {
 					$arr['number'] = SiteStats::users();

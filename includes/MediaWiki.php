@@ -285,7 +285,7 @@ class MediaWiki {
 
 		if ( $pageView ) {
 			// Promote user to any groups they meet the criteria for
-			$user->addAutopromoteOnceGroups( 'onView' );
+			$user->addAutoPromoteOnceGroups( 'onView' );
 		}
 
 	}

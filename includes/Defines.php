@@ -251,7 +251,7 @@ define( 'SFH_OBJECT_ARGS', 2 );
 define( 'RLH_FOR_UPDATE', 1 );
 
 /**@{
- * Autopromote conditions (must be here and not in Autopromote.php, so that
+ * AutoPromote conditions (must be here and not in AutoPromote.php, so that
  * they're loaded for DefaultSettings.php before AutoLoader.php)
  */
 define( 'APCOND_EDITCOUNT', 1 );

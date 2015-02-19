@@ -4741,7 +4741,7 @@ $wgCascadingRestrictionLevels = array( 'sysop' );
  * Certain places in the interface recognize a dichotomy between "protected"
  * and "semiprotected", without further distinguishing the specific levels. In
  * general, if anyone can be eligible to edit a protection level merely by
- * reaching some condition in $wgAutopromote, it should probably be considered
+ * reaching some condition in $wgAutoPromote, it should probably be considered
  * "semiprotected".
  *
  * 'autoconfirmed' is quietly rewritten to 'editsemiprotected' for backwards compatibility.
@@ -4805,7 +4805,7 @@ $wgAutoConfirmCount = 0;
 /**
  * Automatically add a usergroup to any user who matches certain conditions.
  *
- * @todo Redocument $wgAutopromote
+ * @todo Redocument $wgAutoPromote
  *
  * The format is
  *   array( '&' or '|' or '^' or '!', cond1, cond2, ... )
@@ -4825,7 +4825,7 @@ $wgAutoConfirmCount = 0;
  * If $wgEmailAuthentication is off, APCOND_EMAILCONFIRMED will be true for any
  * user who has provided an e-mail address.
  */
-$wgAutopromote = array(
+$wgAutoPromote = array(
 	'autoconfirmed' => array( '&',
 		array( APCOND_EDITCOUNT, &$wgAutoConfirmCount ),
 		array( APCOND_AGE, &$wgAutoConfirmAge ),
@@ -4846,12 +4846,12 @@ $wgAutopromote = array(
  *    - 'onEdit' (when user edits)
  *    - 'onView' (when user views the wiki)
  *
- * Criteria has the same format as $wgAutopromote
+ * Criteria has the same format as $wgAutoPromote
  *
- * @see $wgAutopromote
+ * @see $wgAutoPromote
  * @since 1.18
  */
-$wgAutopromoteOnce = array(
+$wgAutoPromoteOnce = array(
 	'onEdit' => array(),
 	'onView' => array()
 );
@@ -4860,7 +4860,7 @@ $wgAutopromoteOnce = array(
  * Put user rights log entries for autopromotion in recent changes?
  * @since 1.18
  */
-$wgAutopromoteOnceLogInRC = true;
+$wgAutoPromoteOnceLogInRC = true;
 
 /**
  * $wgAddGroups and $wgRemoveGroups can be used to give finer control over who

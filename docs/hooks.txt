@@ -726,7 +726,7 @@ $user: User object created locally
 Gives a chance for an extension to set it programmatically to a variable class.
 &$auth: the $wgAuth object, probably a stub
 
-'AutopromoteCondition': Check autopromote condition for user.
+'AutoPromoteCondition': Check autopromote condition for user.
 $type: condition type
 $args: arguments
 $user: user

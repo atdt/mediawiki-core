@@ -490,7 +490,7 @@ class UserrightsPage extends SpecialPage {
 		$autoList = array();
 		$autoMembersList = array();
 		if ( $user instanceof User ) {
-			foreach ( Autopromote::getAutopromoteGroups( $user ) as $group ) {
+			foreach ( AutoPromote::getAutoPromoteGroups( $user ) as $group ) {
 				$autoList[] = self::buildGroupLink( $group );
 				$autoMembersList[] = self::buildGroupMemberLink( $group );
 			}

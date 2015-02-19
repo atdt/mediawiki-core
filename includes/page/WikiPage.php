@@ -1979,7 +1979,7 @@ class WikiPage implements Page, IDBAccessObject {
 
 		// Promote user to any groups they meet the criteria for
 		$dbw->onTransactionIdle( function () use ( $user ) {
-			$user->addAutopromoteOnceGroups( 'onEdit' );
+			$user->addAutoPromoteOnceGroups( 'onEdit' );
 		} );
 
 		return $status;
