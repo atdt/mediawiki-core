@@ -205,34 +205,7 @@ EOT;
 		$this->loadFiles();
 	}
 
-	protected function loadFiles() {
-		/**
-		 *   --- load mime.types ---
-		 */
-
-		# Allow media handling extensions adding MIME-types and MIME-info
-		if ( $this->initCallback ) {
-			call_user_func( $this->initCallback, $this );
-		}
-
-		$types = self::$wellKnownTypes;
-
-		$mimeTypeFile = $this->typeFile;
-		if ( $mimeTypeFile ) {
-			if ( is_file( $mimeTypeFile ) && is_readable( $mimeTypeFile ) ) {
-				$this->logger->info( __METHOD__ . ": loading mime types from $mimeTypeFile\n" );
-				$types .= "\n";
-				$types .= file_get_contents( $mimeTypeFile );
-			} else {
-				$this->logger->info( __METHOD__ . ": can't load mime types from $mimeTypeFile\n" );
-			}
-		} else {
-			$this->logger->info( __METHOD__ .
-				": no mime types file defined, using built-ins only.\n" );
-		}
-
-		$types .= "\n" . $this->extraTypes;
-
+	protected function parseMimeTypes( $rawMimeTypes ) {
 		$types = str_replace( [ "\r\n", "\n\r", "\n\n", "\r\r", "\r" ], "\n", $types );
 		$types = str_replace( "\t", " ", $types );
 
@@ -284,30 +257,9 @@ EOT;
 				}
 			}
 		}
+	}
 
-		/**
-		 *   --- load mime.info ---
-		 */
-
-		$mimeInfoFile = $this->infoFile;
-
-		$info = self::$wellKnownInfo;
-
-		if ( $mimeInfoFile ) {
-			if ( is_file( $mimeInfoFile ) && is_readable( $mimeInfoFile ) ) {
-				$this->logger->info( __METHOD__ . ": loading mime info from $mimeInfoFile\n" );
-				$info .= "\n";
-				$info .= file_get_contents( $mimeInfoFile );
-			} else {
-				$this->logger->info( __METHOD__ . ": can't load mime info from $mimeInfoFile\n" );
-			}
-		} else {
-			$this->logger->info( __METHOD__ .
-				": no mime info file defined, using built-ins only.\n" );
-		}
-
-		$info .= "\n" . $this->extraInfo;
-
+	protected function parseMimeInfo( $rawMimeInfo ) {
 		$info = str_replace( [ "\r\n", "\n\r", "\n\n", "\r\r", "\r" ], "\n", $info );
 		$info = str_replace( "\t", " ", $info );
 
@@ -365,6 +317,61 @@ EOT;
 				}
 			}
 		}
+	}
+
+	protected function loadFiles() {
+		/**
+		 *   --- load mime.types ---
+		 */
+
+		# Allow media handling extensions adding MIME-types and MIME-info
+		if ( $this->initCallback ) {
+			call_user_func( $this->initCallback, $this );
+		}
+
+		$types = self::$wellKnownTypes;
+
+		$mimeTypeFile = $this->typeFile;
+		if ( $mimeTypeFile ) {
+			if ( is_file( $mimeTypeFile ) && is_readable( $mimeTypeFile ) ) {
+				$this->logger->info( __METHOD__ . ": loading mime types from $mimeTypeFile\n" );
+				$types .= "\n";
+				$types .= file_get_contents( $mimeTypeFile );
+			} else {
+				$this->logger->info( __METHOD__ . ": can't load mime types from $mimeTypeFile\n" );
+			}
+		} else {
+			$this->logger->info( __METHOD__ .
+				": no mime types file defined, using built-ins only.\n" );
+		}
+
+		$types .= "\n" . $this->extraTypes;
+		$this->parseMimeTypes( $types );
+
+
+		/**
+		 *   --- load mime.info ---
+		 */
+
+		$mimeInfoFile = $this->infoFile;
+
+		$info = self::$wellKnownInfo;
+
+		if ( $mimeInfoFile ) {
+			if ( is_file( $mimeInfoFile ) && is_readable( $mimeInfoFile ) ) {
+				$this->logger->info( __METHOD__ . ": loading mime info from $mimeInfoFile\n" );
+				$info .= "\n";
+				$info .= file_get_contents( $mimeInfoFile );
+			} else {
+				$this->logger->info( __METHOD__ . ": can't load mime info from $mimeInfoFile\n" );
+			}
+		} else {
+			$this->logger->info( __METHOD__ .
+				": no mime info file defined, using built-ins only.\n" );
+		}
+
+		$info .= "\n" . $this->extraInfo;
+		$this->parseMimeInfo( $types );
 	}
 
 	public function setLogger( LoggerInterface $logger ) {
