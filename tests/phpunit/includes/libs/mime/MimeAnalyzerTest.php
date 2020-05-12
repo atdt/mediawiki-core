@@ -14,8 +14,8 @@ class MimeAnalyzerTest extends PHPUnit\Framework\TestCase {
 		global $IP;
 
 		$this->mimeAnalyzer = new MimeAnalyzer( [
-			'infoFile' => $IP . "/includes/libs/mime/mime.info",
-			'typeFile' => $IP . "/includes/libs/mime/mime.types",
+			'infoFile' => "includes/mime.info",
+			'typeFile' => "includes/mime.types",
 			'xmlTypes' => [
 				'http://www.w3.org/2000/svg:svg' => 'image/svg+xml',
 				'svg' => 'image/svg+xml',
