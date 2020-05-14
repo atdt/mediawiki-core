@@ -656,14 +656,6 @@ return [
 			'logger' => $logger
 		];
 
-		if ( $params['infoFile'] === 'includes/mime.info' ) {
-			$params['infoFile'] = __DIR__ . "/libs/mime/mime.info";
-		}
-
-		if ( $params['typeFile'] === 'includes/mime.types' ) {
-			$params['typeFile'] = __DIR__ . "/libs/mime/mime.types";
-		}
-
 		$detectorCmd = $mainConfig->get( 'MimeDetectorCommand' );
 		if ( $detectorCmd ) {
 			$factory = $services->getShellCommandFactory();
